@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springbasic.board.mapper.BoardMapper">
+<!--    <select id="select" parameterType="int" resultType="BoardDTO">-->
+<!--        select bno, title, content, writer, view_cnt, comment_cnt, reg_date, up_date from board-->
+<!--        where bno = #{bno}-->
+<!--    </select>-->
+
+    <select id = "read" parameterType="Integer" resultType="BoardDTO">
+            select * from tb_board where bno = #{bno}
+    </select>
+
+            <insert id="write" parameterType="BoardDTO">
+                insert into tb_board(title,content,writer) values (#{title}, #{content}, #{writer})
+            </insert>
+
+            <update id="increaseViewCount" parameterType="int">
+                update tb_board set view_cnt = view_cnt +1
+                where bno = #{bno}
+            </update>
+
+            <select id="pagingList" parameterType="java.util.HashMap" resultType="BoardDTO">
+                select * from tb_board order by bno desc limit #{start}, #{limit}
+            </select>
+
+            <select id="boardCount" resultType="Integer">
+                select count(bno) from tb_board
+            </select>
+
+            <update id="update" parameterType="BoardDTO">
+                update tb_board set
+                    title = #{title},
+                    content = #{content}
+                    where bno = #{bno} and writer = #{writer}
+            </update>
+
+            <delete id ="delete" parameterType="java.util.HashMap" >
+                delete from tb_board where bno= #{bno} and writer = #{writer}
+            </delete>
+</mapper>

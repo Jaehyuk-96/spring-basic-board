@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springbasic.board.mapper.CommentMapper">
+  <insert id="addComment" parameterType="CommentDTO">
+      insert into tb_comment(comment_writer, comment_content, bno) values (#{commentWriter}, #{commentContent}, #{bno})
+  </insert>
+    <select id="getList" parameterType="int" resultType="CommentDTO">
+        select * from tb_comment where bno = #{bno}
+    </select>
+
+    <select id="getTotal" resultType="int">
+        select count(*) from tb_comment where bno = #{bno}
+    </select>
+
+    <delete id="deleteComment" parameterType="CommentDTO">
+    delete from tb_comment where cno = #{cno} and comment_writer=#{commentWriter}
+
+    </delete>
+</mapper>
+
